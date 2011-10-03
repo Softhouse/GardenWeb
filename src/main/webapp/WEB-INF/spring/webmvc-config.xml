@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
+>
+
+	<!-- This will automatically locate any and all property files you have within your classpath, provided they fall under the META-INF/spring directory. The located 
+		property files are parsed and their values can then be used within application context files in the form of ${propertyKey}. -->
+	<context:property-placeholder location="classpath*:META-INF/spring/*.properties,file://${GARDEN_SETTINGS}"
+		ignore-resource-not-found="true" />
+
+	<!-- Turn on AspectJ @Configurable support. As a result, any time you instantiate an object, Spring will attempt to perform dependency injection on that object. 
+		This occurs for instantiation via the "new" keyword, as well as via reflection. This is possible because AspectJ is used to "weave" Roo-based applications at compile 
+		time. In effect this feature allows dependency injection of any object at all in your system, which is a very useful feature (without @Configurable you'd only be 
+		able to dependency inject objects acquired from Spring or subsequently presented to a specific Spring dependency injection method). Roo applications use this useful 
+		feature in a number of areas, such as @PersistenceContext injection into entities. -->
+	<context:spring-configured />
+ 
+ 	<!-- The controllers are autodetected POJOs labeled with the @Controller annotation. -->
+	<context:component-scan base-package="se.softhouse.garden.web.publisher" use-default-filters="false">
+		<context:include-filter expression="org.springframework.stereotype.Controller" type="annotation" />
+	</context:component-scan>
+
+	<!-- Turns on support for mapping requests to Spring MVC @Controller methods Also registers default Formatters and Validators for use across all @Controllers -->
+	<mvc:annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources -->
+	<mvc:resources location="/,${garden.static}" mapping="/static/**" />
+
+	<!-- Allows for mapping the DispatcherServlet to "/" by forwarding static resource requests to the container's default Servlet -->
+	<mvc:default-servlet-handler />
+
+	<!-- register "global" interceptor beans to apply to all registered HandlerMappings -->
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor" />
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="lang" />
+	</mvc:interceptors>
+
+	<!-- selects a static view for rendering without the need for an explicit controller -->
+	<mvc:view-controller path="/uncaughtException" />
+	<mvc:view-controller path="/resourceNotFound" />
+
+	<!-- Resolves localized messages*.properties and application.properties files in the application to allow for internationalization. The messages*.properties files 
+		translate Roo generated messages which are part of the admin interface, the application.properties resource bundle localizes all application specific messages such 
+		as entity names and menu items. -->
+	<bean class="se.softhouse.garden.orchid.spring.text.OrchidReloadableResourceBundleMessageSource" id="parentMessageSource" p:basenames="WEB-INF/i18n/messages,WEB-INF/i18n/application"
+		p:fallbackToSystemLocale="false" p:useCodeAsDefaultMessage="true" />
+	<bean class="se.softhouse.garden.orchid.spring.text.OrchidDirectoryMessageSource" id="messageSource" p:parentMessageSource-ref="parentMessageSource"
+		p:urls="${garden.messages}" />
+	<bean class="se.softhouse.garden.orchid.spring.utils.MessageBean" id="message" lazy-init="true" >
+	</bean>
+
+	<!-- store preferred language configuration in a cookie -->
+	<bean class="org.springframework.web.servlet.i18n.CookieLocaleResolver" id="localeResolver" p:cookieName="locale" />
+
+	<!-- resolves localized <theme_name>.properties files in the classpath to allow for theme support -->
+	<bean class="org.springframework.ui.context.support.ResourceBundleThemeSource" id="themeSource" />
+
+	<!-- store preferred theme configuration in a cookie -->
+	<bean class="org.springframework.web.servlet.theme.CookieThemeResolver" id="themeResolver" p:cookieName="theme" p:defaultThemeName="standard" />
+
+	<!-- This bean resolves specific types of exceptions to corresponding logical - view names for error views. The default behaviour of DispatcherServlet - is to propagate 
+		all exceptions to the servlet container: this will happen - here with all other types of exceptions. -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" p:defaultErrorView="uncaughtException">
+		<property name="exceptionMappings">
+			<props>
+				<prop key=".NoSuchRequestHandlingMethodException">resourceNotFound</prop>
+				<prop key=".TypeMismatchException">resourceNotFound</prop>
+				<prop key=".MissingServletRequestParameterException">resourceNotFound</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- allows for integration of file upload functionality -->
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver" />
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" id="tilesViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
+	</bean>
+	<bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer" id="tilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/layouts/layouts.xml</value>
+				<!-- Scan views directory for Tiles configurations -->
+				<value>/WEB-INF/views/**/views.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.web.context.support.ServletContextAttributeExporter">
+		<property name="attributes">
+			<map>
+				<entry key="url">
+					<ref bean="url" />
+				</entry>
+				<entry key="message">
+					<ref bean="message" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<import resource="webflow-config.xml" />
+</beans>

@@ -1,0 +1,31 @@
+<div class="wrapper" id="wrapper" xmlns:spring="http://www.springframework.org/tags" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:orchid="http://www.softhouse.se/garden/orchid"
+>
+	<jsp:output omit-xml-declaration="yes" />
+
+	<div class="main">
+		<h3><orchid:message code="${context}.template.description"/></h3>
+		<p><orchid:message code="${context}.${index}.intro" htmlEscape="false" /></p>
+		<p><orchid:message code="${context}.${index}.description" htmlEscape="false" /></p>
+		<h3><orchid:message code="${context}.template.projectpage"/></h3>
+		<p><a href="${message[context][index]['home']}"><orchid:message code="${context}.${index}.home" /></a> </p>
+		<h3><orchid:message code="${context}.template.issues"/></h3>
+		<p><a href="${message[context][index]['issues']}"><orchid:message code="${context}.${index}.issues" /></a> </p>
+		<h3><orchid:message code="${context}.template.source"/></h3>
+		<p><orchid:message code="${context}.${index}.source" /></p>
+		<h3><orchid:message code="${context}.template.license"/></h3>
+		<orchid:message code="${context}.${index}.licenseurl" var="licenseurl" />
+		<p><a href="${message[context][index]['licenseurl']}"><orchid:message code="${context}.${index}.license" /></a> </p>
+		<h3><orchid:message code="${context}.template.contributors"/></h3>
+		<p>
+		<orchid:message code="${context}.${index}.contributors" var="contributors"/>
+		<c:forEach items="${contributors}" var="contributor">
+			<a href="${url['/people/'][contributor]}">${message['people'][contributor]['title']}</a>
+		</c:forEach>
+		
+		</p>
+	</div>
+
+</div>
+

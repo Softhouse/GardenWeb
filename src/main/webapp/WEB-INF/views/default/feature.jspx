@@ -1,0 +1,14 @@
+<div id="feature" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags" xmlns:tiles="http://tiles.apache.org/tags-tiles">
+
+	<tiles:useAttribute id="context" name="context" ignore="true" classname="java.lang.String" scope="request"/> 
+	<tiles:useAttribute id="index" name="index" ignore="true" classname="java.lang.String" scope="request"/> 
+
+	<div class="top_shadow"><!-- FF --></div>
+	<div class="inner">
+		<h1>
+			${message[context][index]['title']}
+		</h1>
+	</div>
+	<div class="bottom_shadow"><!-- FF --></div>
+</div>

@@ -1,0 +1,18 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+
+	<jsp:output omit-xml-declaration="yes" />
+
+	<script type="text/javascript" src="${url['/js/jquery-1.4.2.min.js']}"><!-- FF --> </script>
+	<script type="text/javascript" src="${url['/js/jquery-ui-1.8.4.custom.min.js']}"><!-- FF --> </script>
+	<script type="text/javascript" src="${url['/js/jqueryslidemenu.js']}"><!-- FF --> </script>
+	<script src="${url['/js/cufon-yui.js']}" type="text/javascript"><!-- FF --> </script>
+	<script src="${url['/js/Segan_300.font.js']}" type="text/javascript"><!-- FF --> </script>
+	<script type="text/javascript">
+		Cufon.replace('h1'); // Works without a selector engine
+		Cufon.replace('h3'); // Works without a selector engine
+		/**
+		Cufon.replace('#navigation'); // Works without a selector engine
+		**/
+	</script>
+		
+</jsp:root>

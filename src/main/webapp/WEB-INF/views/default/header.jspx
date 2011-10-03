@@ -1,0 +1,36 @@
+<header id="header" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags" xmlns:tiles="http://tiles.apache.org/tags-tiles" xmlns:orchid="http://www.softhouse.se/garden/orchid"
+>
+
+	<jsp:output omit-xml-declaration="yes" />
+
+	<div class="inner">
+		<div class="smart"><!-- FF --></div>
+		<div id="logo">
+			<a href="${url['/']}"><img class="ie_png" src="${url['/images/sh_logo.png']}" /> </a>
+		</div>
+		<nav id="navigation" class="jqueryslidemenu">
+			<ul>
+				<orchid:message code="menu.items" var="items" default="" />
+				<c:forEach items="${items}" var="context">
+					<orchid:message code="menu.items.${context}.title" var="title"/>
+					<c:if test="${!empty title}">
+						<li><a href="${url[message['menu.items'][context]['url']]}">${title}</a>
+							<orchid:message code="menu.items.${context}.items" var="indexes" default=""/>
+							<c:if test="${!empty indexes}">
+								<ul>
+									<c:forEach items="${indexes}" var="index">
+										<orchid:message code="${context}.${index}.title" var="title"/>
+										<c:if test="${!empty title}">
+											<li><a href="${url['/'][context]['/'][index]}">${message[context][index]['title']}</a></li>
+										</c:if>
+									</c:forEach>
+								</ul>
+							</c:if>
+						</li>
+					</c:if>
+				</c:forEach>
+			</ul>
+		</nav>
+	</div>
+</header>

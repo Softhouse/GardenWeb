@@ -1,0 +1,36 @@
+<html xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:orchid="http://www.softhouse.se/garden/orchid"
+>
+
+	<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
+	<jsp:output omit-xml-declaration="yes" />
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" />
+	<tiles:useAttribute id="context" name="context" ignore="true" classname="java.lang.String" scope="request"/> 
+	<tiles:useAttribute id="index" name="index" ignore="true" classname="java.lang.String" scope="request"/> 
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>${message[context][index]['title']} | Softhouse Garden</title>
+		<util:load-theme />
+		<util:load-scripts />
+	</head>
+
+	<body>
+		<tiles:insertAttribute name="header" ignore="true" />
+		<tiles:insertAttribute name="feature" ignore="true" >
+			<tiles:putAttribute name="context" value="${context}" />
+			<tiles:putAttribute name="index" value="${index}" />
+		</tiles:insertAttribute>
+		<div id="page">
+			<div class="inner right_sidebar">
+				<div id="main">
+					<tiles:insertAttribute name="body" />
+				</div>
+				<aside id="sidebar">
+					<tiles:insertAttribute name="sidebar" ignore="true" />
+				</aside>
+			</div>
+		</div>
+		<tiles:insertAttribute name="footer" ignore="true" />
+	</body>
+</html>

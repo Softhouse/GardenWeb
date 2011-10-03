@@ -1,0 +1,29 @@
+<div class="wrapper" id="wrapper" xmlns:spring="http://www.springframework.org/tags" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:orchid="http://www.softhouse.se/garden/orchid"
+>
+	<jsp:output omit-xml-declaration="yes" />
+
+	<div class="main">
+		<h3>
+			<orchid:message code="${context}.template.description" />
+		</h3>
+		<p>
+			<orchid:message code="${context}.${index}.description" htmlEscape="false" />
+		</p>
+		<h3>
+			<orchid:message code="${context}.template.links" />
+		</h3>
+		<orchid:message code="${context}.${index}.link" var="links" default="" />
+		<ul class="posts_list">
+			<c:forEach items="${links}" var="link">
+				<li>
+				<img src="${message[context][index]['link'][link]['image']}" /> <a href="${message[context][index]['link'][link]['url']}">
+						${message[context][index]['link'][link]['name']} </a>
+				</li>
+			</c:forEach>
+		</ul>
+	</div>
+
+</div>
+
