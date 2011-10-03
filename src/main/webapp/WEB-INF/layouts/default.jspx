@@ -13,6 +13,7 @@
 		<title>${message[context][index]['title']} | Softhouse Garden</title>
 		<util:load-theme />
 		<util:load-scripts />
+		<util:google-analytics />
 	</head>
 
 	<body>
