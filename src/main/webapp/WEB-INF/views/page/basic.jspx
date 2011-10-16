@@ -9,7 +9,7 @@
 			<h3>
 				<orchid:message code="${context}.${index}.heading" />
 			</h3>
-			<orchid:message code="${context}.${index}.content" htmlEscape="false" />
+			<orchid:message code="${context}.${index}.content" autoFormat="true" />
 		</div>
 	</div>
 

@@ -13,7 +13,6 @@
 		<slf4j.version>1.6.1</slf4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-security.version>3.0.2.RELEASE</spring-security.version>
-		<cxf.version>2.2.9</cxf.version>
 		<sh.orchid.version>0.4-SNAPSHOT</sh.orchid.version>
 	</properties>
 	<repositories>
@@ -294,32 +293,6 @@
 			<artifactId>com.springsource.javax.persistence</artifactId>
 			<version>1.0.0</version>
 			<scope>compile</scope>
-		</dependency>
-		<!-- Apache CXF -->
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxws</artifactId>
-			<version>${cxf.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http</artifactId>
-			<version>${cxf.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-ws-security</artifactId>
-			<version>${cxf.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-ws-policy</artifactId>
-			<version>${cxf.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-ws-addr</artifactId>
-			<version>${cxf.version}</version>
 		</dependency>
 	</dependencies>
 	<build>

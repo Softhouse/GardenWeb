@@ -6,7 +6,16 @@
 
 	<div class="main">
 		<div class="title">
-			<orchid:message code="${context}.${index}.content" htmlEscape="false" />
+			<orchid:message code="${context}.${index}" var="questions" default="" />
+			<c:if test="${!empty questions}">
+				<c:forEach items="${questions}" var="question">
+					<c:if test="${'title' ne question}">
+						<div class="divider_line">
+							<orchid:message code="${context}.${index}.${question}" autoFormat="true" />
+						</div>
+					</c:if>
+				</c:forEach>
+			</c:if>
 		</div>
 	</div>
 

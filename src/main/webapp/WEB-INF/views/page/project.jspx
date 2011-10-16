@@ -5,9 +5,9 @@
 	<jsp:output omit-xml-declaration="yes" />
 
 	<div class="main">
-		<h3><orchid:message code="${context}.template.description"/></h3>
-		<p><orchid:message code="${context}.${index}.intro" htmlEscape="false" /></p>
-		<p><orchid:message code="${context}.${index}.description" htmlEscape="false" /></p>
+		<h3><orchid:message code="${context}.template.description" /></h3>
+		<p><orchid:message code="${context}.${index}.intro" autoFormat="true" /></p>
+		<p><orchid:message code="${context}.${index}.description" autoFormat="true" /></p>
 		<h3><orchid:message code="${context}.template.projectpage"/></h3>
 		<p><a href="${message[context][index]['home']}"><orchid:message code="${context}.${index}.home" /></a> </p>
 		<h3><orchid:message code="${context}.template.issues"/></h3>

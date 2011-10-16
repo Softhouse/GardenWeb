@@ -15,7 +15,7 @@
 					<c:forEach items="${lines}" var="line">
 						<li>
 							<div class="post_extra_info">
-								<orchid:message code="sidebar.${content}.line.${line}" htmlEscape="false"/>
+								<orchid:message code="sidebar.${content}.line.${line}" autoFormat="true" />
 							</div>
 						</li>
 					</c:forEach>
