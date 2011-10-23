@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
+import se.softhouse.garden.orchid.commons.text.OrchidMessage;
+
 @RequestMapping("/{context:page|project|faq|people}")
 @Controller
 public class PageController {
@@ -23,6 +25,14 @@ public class PageController {
 	@RequestMapping("/{index}")
 	public String page(@PathVariable String context, @PathVariable String index, Model model, Locale locale) throws NoSuchRequestHandlingMethodException {
 		String view = this.messageSource.getMessage(context + "." + index + ".view", null, "page/" + context, locale);
+		String check = this.messageSource.getMessage("page." + context + ".check", new Object[] { OrchidMessage.arg("conext", context).arg("index", index) },
+		        null, locale);
+		if (check != null) {
+			String prop = this.messageSource.getMessage(check, null, null, locale);
+			if (prop == null) {
+				throw new NoSuchRequestHandlingMethodException("page", PageController.class);
+			}
+		}
 		model.addAttribute("context", context);
 		model.addAttribute("index", index);
 		return view;
